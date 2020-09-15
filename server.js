@@ -13,7 +13,9 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
 
-if (mongoURL == null) {
+console.log('Connecting to MongoDB at: %s', mongoURL);
+
+if (mongoURL != null) {
   var mongoHost, mongoPort, mongoDatabase, mongoPassword, mongoUser;
   // If using plane old env vars via service discovery
   if (process.env.DATABASE_SERVICE_NAME) {
@@ -29,6 +31,8 @@ if (mongoURL == null) {
     mongoDatabase = process.env.database_name;
     mongoPassword = process.env.password;
     mongoUser = process.env.username;
+    console.log('Variables are: %s %s ', mongoDatabase,mongoUser ) ; 
+      
     var mongoUriParts = process.env.uri && process.env.uri.split("//");
     if (mongoUriParts.length == 2) {
       mongoUriParts = mongoUriParts[1].split(":");
